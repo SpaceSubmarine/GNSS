@@ -1,0 +1,1177 @@
+# TUTORIAL 5: Analysis of propagation effects from GNSS
+#             observables based on laboratory exercises
+# =====================================================
+
+# Create the Working directory and copy Programs and Files
+# into this directory.
+
+
+mkdir ./WORK 2> /dev/null
+mkdir ./WORK/TUT5
+mkdir ./WORK/TUT5/FIG
+
+cd ./WORK/TUT5
+
+
+#PROGRAM FILES
+#-------------
+cp ../../PROG/TUT5/* .
+cp -d /bin/gLAB_linux /bin/gLAB_GUI.py /bin/graph.py .
+
+
+#DATA FILES
+#----------
+cp ../../FILES/TUT5/* .
+
+gzip -df *.Z *.gz
+
+#============================================================
+
+
+#Example 1: 
+#----------
+
+#a) FULL model [gLAB.out]
+ ./gLAB_linux -input:cfg gLAB_p1_Full.cfg -input:obs ramo1250.00o -input:nav brdc1250.00n  
+
+ ./graph.py -f gLAB.out -x4 -y18 -s.- -c '($1=="OUTPUT")'  -l "North error"  -f gLAB.out -x4 -y19 -s.- -c '($1=="OUTPUT")'  -l "East error"  -f gLAB.out -x4 -y20 -s.- -c '($1=="OUTPUT")'  -l "UP error" --yn -20 --yx 50 --xl "time (s)" --yl "error (m)"  -t "NEU positioning error [SPP]: Full model" --sv FIG/Example1a1.png
+
+ ./graph.py -f gLAB.out -x19 -y18 -so --cl r -c '($1=="OUTPUT")' --xl "East error (m)" --yl "North error (m)" -t "Horizontal positioning error [SPP]" --xn -20 --xx 20 --yn -20 --yx 20 --sv FIG/Example1a2.png
+
+
+# b) No ionospheric corrections
+
+ ./gLAB_linux -input:cfg gLAB_p1_NoIono.cfg -input:obs ramo1250.00o -input:nav brdc1250.00n
+
+ ./graph.py -f gLAB1.out -x4 -y18 -s.- -c '($1=="OUTPUT")' -l "North error" -f gLAB1.out -x4 -y19 -s.- -c '($1=="OUTPUT")' -l "East error" -f gLAB1.out -x4 -y20 -s.- -c '($1=="OUTPUT")' -l "UP error" --yn -20 --yx 50 --xl "time (s)" --yl "error (m)" -t "NEU error [SPP]: No Iono. corr.: 4th May 2000" --sv FIG/Example1b1.png
+
+
+ ./graph.py -f gLAB.out -x4 -y20 -s.- -c '($1=="OUTPUT")' -l "Full model" -f gLAB1.out -x4 -y20 -s.- -c '($1=="OUTPUT")' -l "No Iono. corr." --cl r  --yn -20 --yx 50 --xl "Time (s)" --yl "Up error (m)" -t "Vertical positioning error [SPP]" --sv FIG/Example1b2.png
+
+ ./graph.py  -f gLAB1.out -x19 -y18 -so -c '($1=="OUTPUT")' -l "No Iono. corr." --cl r  -f gLAB.out -x19 -y18 -so -c '($1=="OUTPUT")'  -l "Full model"  --cl b --xl "East error (m)" --yl "North error (m)" -t "Horizontal positioning error [SPP]" --xn -20 --xx 20 --yn -20 --yx 20 --sv FIG/Example1b3.png
+
+ ./graph.py -f gLAB.out -x4 -y25 -s. -c '($1=="MODEL")' --xl "time (s)" --yl "metres" -t "Model: Iono. corrections [SPP]" --sv FIG/Example1b4.png
+
+
+# Klobuchar v.s. Measurement (P2-P1) v.s. Model (Klobuchar):
+
+ ./graph.py  -f gLAB.out -x4 -y25 -s. -c '($1=="MODEL")' -f gLAB.out -x4 -y'($10-$9)' -s. --cl r -c '($1=="INPUT")'  --xl "time (s)" --yl "metres" -t "Ionospheric Combination" --yn -0 --yx 40 --sv FIG/Example1b5.png
+
+
+
+# c) With the ionosphere free combination:
+
+ ./gLAB_linux -input:cfg gLAB_pc_IFree.cfg -input:obs ramo1250.00o -input:nav brdc1250.00n 
+
+ ./graph.py -f gLAB2.out -x4 -y18 -s.- -c '($1=="OUTPUT")'  -l "North error"  -f gLAB2.out -x4 -y19 -s.- -c '($1=="OUTPUT")'  -l "East error"  -f gLAB2.out -x4 -y20 -s.- -c '($1=="OUTPUT")'  -l "UP error" --yn -20 --yx 50 --xl "time (s)" --yl "error (m)"  -t "NEU positioning error [2-freq. Iono-free]" --sv FIG/Example1c1.png
+
+ ./graph.py -f gLAB2.out -x19 -y18 -so --cl r -c '($1=="OUTPUT")' --xl "East error (m)" --yl "North error (m)" -t "Horizontal positioning error [2-freq. Iono-free]" --xn -20 --xx 20 --yn -20 --yx 20 --sv FIG/Example1c2.png
+
+
+
+
+#Example 2:
+#----------
+
+ ./gLAB_linux -input:cfg meas.cfg -input:obs coco0090.97o -input:nav brdc0090.97n > coco.meas
+
+#              1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16
+#coco.meas = [MEAS YY Doy sec GPS PRN el Az N. list C1C  L1C C1P L1P C2P L2P]
+#                                        x           x    x   x    
+
+gawk '{print $6,$4,$15-$11,($15-$16)/5.09,($11-$14)/3.09,$14-$16,$7/10}'  coco.meas > obs.txt
+
+#            1   2    3       4             5         6      7  
+# obs.txt= [PRN,sec,P2-P1,(P2-L2)/5.09,(P1-L1)/3.09,L1-L2,Elev/10]
+
+
+ ./graph.py -f obs.txt -c'($1==01)' -x2 -y3 -l "P2-P1"  -f obs.txt -c'($1==01)' -x2 -y4 -l "(P2-L2)/5.09"  -f obs.txt -c'($1==01)' -x2 -y5 -l "(P1-L1)/3.09" --cl c  -f obs.txt -c'($1==01)' -x2 -y6 -l "L1-L2" --cl r  -f obs.txt -c'($1==01)' -x2 -y7 -l "Elev/10" --yn -10 --yx 15 --xl "time (s)" --yl "metres of L1-L2 delay" -t "Ionospheric Refraction: code and carrier phase"   --sv FIG/Example2a.png
+
+
+ ./graph.py -f obs.txt -c'($1==01)' -x2 -y3 -l "P2-P1" -f obs.txt -c'($1==01)' -x2 -y4  -l "(P2-L2)/5.09" -f obs.txt -c'($1==01)' -x2 -y5  -l "(P1-L1)/3.09" --cl c -f obs.txt -c'($1==01)' -x2 -y6 -s- -l "L1-L2" --cl r --xn 12000 --xx 30000 --yn -7 --yx 15 --xl "time (s)" --yl "metres of L1-L2 delay" -t "Zoom: Ionospheric Refraction: code and carrier phase"  --sv FIG/Example2b.png
+
+
+
+#Example 3: Zenith Troposphere Delay (ZTD) estimation from Precise Point Positioning (PPP)
+#-----------------------------------------------------------------------------------------
+
+#a) Computing the PPP solution:
+
+ ./gLAB_linux -input:cfg gLAB_PPP.cfg -input:obs roap1810.09o -input:sp3 igs15382.sp3 -input:ant igs05_1525.atx -input:snx igs09P1538.snx
+
+ ./graph.py -f gLAB.out -x4 -y18 -s.- -c '($1=="OUTPUT")'  -l "North error"  -f gLAB.out -x4 -y19 -s.- -c '($1=="OUTPUT")'  -l "East error"  -f gLAB.out -x4 -y20 -s.- -c '($1=="OUTPUT")'  -l "UP error" --yn -0.2 --yx 0.2 --xl "time (s)" --yl "error (m)"  -t "NEU positioning error [Static PPP]" --sv FIG/Example3a.png
+
+
+#b) Comparison with the IGS solution:
+#-----------------------------------
+
+grep ROAP roap1810.09zpd |gawk -F\: '{print $3}'| gawk '{print $1,$2/1000}' > roap_igs.trp
+
+# Note: the ZTD of roap1810.09zpd are im millimetres of delay
+ ./graph.py -f gLAB.out -x4 -y9 -s.- -c '($1=="FILTER")' -l "gLAB with PPP" -f roap_igs.trp -s.-  -l "IGS" --xl "time (s)" --yl "metres" --yn 2.40 --yx 2.55 -t "Zenith Tropospheric Delay Estimation" --sv FIG/Example3b.png
+
+
+
+
+# #########################################################################
+# #########################################################################
+#                          LABORATORY SESSION:
+#                      Basic Introductory Exercises
+# #########################################################################
+# #########################################################################
+
+
+
+# Exercise 1: Assessing Ionospheric effects on single frequency positioning
+# =========================================================================
+
+# -------------------------------------------------------------------------
+# Note: This exercise can be executed by executing from gLAB Graphic User 
+#       Interface (gLAB_GUI.py), an in the previous Example 1, or using 
+#       command line instructions. 
+#       The command line instructions are provided in this Notepad to
+#       help the sentences writing.
+# -------------------------------------------------------------------------
+
+
+# 1a: Single freq.: Full model  (P1): ===> OUTPUT file: gLAB.out
+# ...............................................................
+
+# Processing with gLAB (Full model):
+ ./gLAB_linux -input:cfg gLAB_p1_Full.cfg -input:obs amc23030.03o -input:nav brdc3030.03n
+
+
+# NSE: North/East/up plot: [Full model]
+ ./graph.py -f gLAB.out -x4 -y18 -s.- -c '($1=="OUTPUT")'  -l "North error"  -f gLAB.out -x4 -y19 -s.- -c '($1=="OUTPUT")'  -l "East error"  -f gLAB.out -x4 -y20 -s.- -c '($1=="OUTPUT")'  -l "UP error" --yn -40 --yx 70 --xl "time (s)" --yl "error (m)"  -t "NEU positioning error [SPP]: Full model" --sv FIG/Ex2a1.png
+
+# HPS: North/East plot: [Full model]
+ ./graph.py -f gLAB.out -x19 -y18 -so --cl r -c '($1=="OUTPUT")' --xl "East error (m)" --yl "North error (m)" -t "Horizontal positioning error [SPP]" --xn -40 --xx 40 --yn -40 --yx 40 --sv FIG/Ex2a2.png
+
+
+
+
+# 1b: Single freq.: without iono. corrections (P1):  ===> OUTPUT file: gLAB1.out
+# ...............................................................................
+
+# Processing with gLAB (Ionospheric correction and P1-P2 correction DISABLED):
+ ./gLAB_linux -input:cfg gLAB_p1_NoIono.cfg -input:obs amc23030.03o -input:nav brdc3030.03n
+
+
+# NSE: North/East/up plot: [No iono]:
+ ./graph.py -f gLAB1.out -x4 -y18 -s.- -c '($1=="OUTPUT")'  -l "North error"  -f gLAB1.out -x4 -y19 -s.- -c '($1=="OUTPUT")'  -l "East error"  -f gLAB1.out -x4 -y20 -s.- -c '($1=="OUTPUT")'  -l "UP error" --yn -20 --yx 90 --xl "time (s)" --yl "error (m)"  -t "NEU positioning error [SPP]: No Iono" --sv FIG/Ex2b1.png
+
+# HPS: North/East plot: [No iono]
+ ./graph.py -f gLAB1.out -x19 -y18 -so --cl r -c '($1=="OUTPUT")' --xl "East error (m)" --yl "North error (m)" -t "Horizontal positioning error [SPP]" --xn -40 --xx 40 --yn -40 --yx 40 --sv FIG/Ex2b2.png
+
+# Vertical Position Error: [Full model v.s. No iono]
+ ./graph.py -f gLAB.out -x4 -y20 -s.- -c '($1=="OUTPUT")' -l "Full model" -f gLAB1.out -x4 -y20 -s.- -c '($1=="OUTPUT")' -l "No Iono. corr." --cl r  --yn -40 --yx 90 --xl "Time (s)" --yl "Up error (m)" -t "Vertical positioning error [SPP]" --sv FIG/Ex2b3.png
+
+# Horizontal Position Error: [Full model v.s. No iono]
+ ./graph.py  -f gLAB1.out -x19 -y18 -so -c '($1=="OUTPUT")' -l "No Iono. corr." --cl r  -f gLAB.out -x19 -y18 -so -c '($1=="OUTPUT")'  -l "Full model"  --cl b --xl "East error (m)" --yl "North error (m)" -t "Horizontal positioning error [SPP]" --xn -40 --xx 40 --yn -40 --yx 40 --sv FIG/Ex2b4.png
+
+# Ionospheric model (Klobuchar):
+ ./graph.py -f gLAB.out -x4 -y25 -s. -c '($1=="MODEL")' --yn 0 --yx 40 --xl "time (s)" --yl "metres" -t "Model: Iono. corrections [SPP]" --sv FIG/Ex2b5.png
+
+
+# Klobuchar v.s. Measurement (P2-P1):
+./graph.py -f gLAB.out -x4 -y'($10-$9+4)' -s. -c '($1=="INPUT")' -l "PI=P2-P1 (shiifted +4m)" -f gLAB.out -x4 -y25 -s. -c '($1=="MODEL") & ($7=="C1C")' -l "Klobuchar: STEC" --cl r --xl "time (s)" --yl "metres" -t "Ionospheric Combination" --yn -5 --yx 80 --sv FIG/Ex2b6.png
+
+
+
+# 1c: Dual freq.: Ionosphere-free combination [PC]:  ===> OUTPUT file: gLAB2.out
+# ...............................................................................
+
+# Processing with gLAB (Dual freq.: Ionosphere-free combination [PC]):
+ ./gLAB_linux -input:cfg gLAB_pc_IFree.cfg -input:obs amc23030.03o -input:nav brdc3030.03n
+
+
+# NSE: North/East/up plot: [PC]:
+ ./graph.py -f gLAB2.out -x4 -y18 -s.- -c '($1=="OUTPUT")'  -l "North error"  -f gLAB2.out -x4 -y19 -s.- -c '($1=="OUTPUT")'  -l "East error"  -f gLAB2.out -x4 -y20 -s.- -c '($1=="OUTPUT")'  -l "UP error" --yn -40 --yx 70 --xl "time (s)" --yl "error (m)"  -t "NEU positioning error [2-freq. Iono-free]" --sv FIG/Ex2c1.png
+
+# Horizontal Position Error: [PC]
+ ./graph.py -f gLAB2.out -x19 -y18 -so --cl r -c '($1=="OUTPUT")' --xl "East error (m)" --yl "North error (m)" -t "Horizontal positioning error [2-freq. Iono-free]" --xn -40 --xx 40 --yn -40 --yx 40 --sv FIG/Ex2c2.png
+
+
+#######################################################################
+
+
+# Exercise 2: STEC in a Radio Occultation (RO)
+# =============================================
+
+# The "RO.obs" file has the following content:
+
+#========================================= RO.obs ===========================================
+#                            |<------ LEO ------>|<------- GPS ------->|
+#YY DoY HH.HH CODE PRN  elev  r_LEO AR_LEO DEC_LEO  r_GPS AR_GPS DEC_GPS   L1  L2   L1-L2 arc
+#                       (deg)  (km) (Deg)   (Deg)    (km)  (Deg)  (Deg)   (cycles)   (m)
+# 1  2    3    4    5    6       7    8       9       10     11     12     13  14     15  16
+#============================================================================================
+
+
+# a) From "RO.obs" file, plot the L1-L2 measurement in function of time to 
+#    depict the variation of STEC along the occultation:
+#        - Select for instance: PRN=02  and "CODE=l241", 
+#                               that corresponds to LEO=4 and Antenna 1
+
+# - Selecting: CODE=l241 and PRN=02
+    grep l241 RO.obs|gawk '{if ($5==02) print $3,$15}'> ro.dat
+
+# - Plotting L1-L2 
+    ./graph.py -f ro.dat --xl "time (H)" --yl "metres of L1-L2" -t"RO: L1-L2: COSMIC #4 Antenna #1" --sv FIG/Ex2.png
+
+
+#######################################################################
+
+
+
+# Exercise 3: Solar-Flare: 2003/10/28:
+# =====================================
+
+# a) Reading RINEX files and generating MEAS files:
+ ./gLAB_linux -input:cfg meas.cfg -input:obs ankr3010.03o > ankr3010.03.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs asc13010.03o > asc13010.03.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs kour3010.03o > kour3010.03.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs qaq13010.03o > qaq13010.03.meas
+
+
+# b) Plotting results:
+ ./graph.py -f ankr3010.03.meas  -x4 -y'($14-$16)' -l "ankr" -f asc13010.03.meas  -x4 -y'($14-$16)' -l "asc1" -f kour3010.03.meas -x4 -y'($14-$16)' -l "kour" -f qaq13010.03.meas  -x4 -y'($14-$16)' -l "qaq1"  --xl "time (s)" --yl "metres of L1-L2"  --xn 38500 --xx 40500 --yn -20 --yx 20  -t "28 Oct 2003 Solar flare"  --sv FIG/Ex3.png
+
+
+#######################################################################
+
+
+
+# Exercise 4: Halloween's Ionospheric Storm: P1-P2 analysis
+# ==========================================================
+
+# a) Reading RINEX files and generating MEAS files:
+
+ ./gLAB_linux -input:cfg meas.cfg -input:obs amc23030.03o -input:nav brdc3030.03n > amc23030.03.meas
+
+# b) Computing the ionospheric combination of codes PI=P2-P1, and generating
+#    the file PI.txt with the following  content: [PRN, hour, PI=P2-P1, elevation]
+
+gawk '{print $6, $4/3600, $15-$13, $7}' amc23030.03.meas > PI.txt
+
+
+# b) Plotting results:
+
+ ./graph.py -f PI.txt -x2 -y3 -l "ALL" -f PI.txt -c'($1==28)' -x2 -y3 -so -l "28:P2-P1" -f PI.txt -c'($1==28)' -x2 -y4 -l "29:ELEV" -f PI.txt -c'($1==29)' -x2 -y3 -so -l "29:P2-P1" -f PI.txt -c'($1==29)' -x2 -y4 -l "29:ELEV" -f PI.txt -c'($1==13)' -x2 -y3 -so -l "13:P2-P1" -f PI.txt -c'($1==13)' -x2 -y4 -l "13:ELEV" --xn 15 --xx 25 --yn 0 --yx 85 --xl "time (s)" --yl "metres of L1-L2 delay" -t "IONO: Halloween storm 2003/10/30: amc2" --sv FIG/Ex4.png
+
+
+#######################################################################
+
+
+
+# Exercise 5: Halloween's Ionospheric Storm evolution: From October 28th to November 2nd 2003 
+# =====================================================
+
+
+# a) Reading RINEX files and generating MEAS files [North Anerica: USA]:
+# ................................................
+
+ ./gLAB_linux -input:cfg meas.cfg -input:obs garl3010.03o -input:nav brdc3010.03n > garl3010.03.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs garl3020.03o -input:nav brdc3020.03n > garl3020.03.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs garl3030.03o -input:nav brdc3030.03n > garl3030.03.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs garl3040.03o -input:nav brdc3040.03n > garl3040.03.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs garl3050.03o -input:nav brdc3050.03n > garl3050.03.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs garl3060.03o -input:nav brdc3060.03n > garl3060.03.meas
+
+
+# b) Merging files and referring all the data to 0h of October 28th: Doy0301.
+#    Computing the ionospheric combination of codes PI=P2-P1, and generating
+#    the file PI.txt with the following  content: [PRN, hour, PI=P2-P1, elevation]
+
+cat garl30?0.03.meas |gawk '{d=($3-301)*86400;$4=$4+d;$4=$4/3600;print $0}' > garl.meas
+
+
+# c) Plotting results:
+# ....................
+ ./graph.py -f garl.meas -x4 -y'($15-$11)' -l "ALL: P2-P1" -f garl.meas -c'($6==04)' -x4 -y7 -l "PRN04: ELEV" -f garl.meas -c'($6==04)' -x4 -y'($15-$11)' -so -l "PRN04: P2-P1" --xn 0 --xx 144 --yn -10 --yx 70 --xl "Hours from (2003 Oct 28th 0h GPS time)" --yl "metres of L1-L2 delay" -t "IONO: Halloween Storm: 28Oct-02Nov: garl (Lat:40,Lon:-119)"  --sv FIG/Ex5a.png
+
+
+# d) Zoom: Plotting the time interval from 2003 Oct 30th to 31st:
+# ---------------------------------------------------------------
+
+ ./graph.py -f garl.meas -x4 -y'($15-$11)' -l "ALL: P2-P1" -f garl.meas -c'($6==04)' -x4 -y7 -l "PRN04: ELEV" -f garl.meas -c'($6==04)' -x4 -y'($15-$11)' -so -l "PRN04: P2-P1" --xn 70 --xx 78 --yn -10 --yx 70 --xl "Hours from (2003 Oct 28th 0h GPS time)" --yl "metres of L1-L2 delay" -t "IONO: Halloween Storm: 28Oct-02Nov: garl (Lat:40,Lon:-119)"  --sv FIG/Ex5b.png
+
+
+########################################################################
+
+
+
+# Ex 6: Medium Scale Travelling Ionospheric Disturbances propagation
+# ===================================================================
+
+# a) Reading RINEX files and generating MEAS files:
+#--------------------------------------------------
+
+ ./gLAB_linux -input:cfg meas.cfg -input:obs mhcb2910.01o > mhcb.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs monb2910.01o > monb.meas
+ ./gLAB_linux -input:cfg meas.cfg -input:obs sodb2910.01o > sodb.meas
+
+
+# b) Selecting satellite PRN16:
+#------------------------------
+
+gawk '{if ($6==14) print $0}' mhcb.meas > mhcb_14.meas
+gawk '{if ($6==14) print $0}' monb.meas > monb_14.meas
+gawk '{if ($6==14) print $0}' sodb.meas > sodb_14.meas
+
+
+# c) Detrending on the geometry-free combination L1-L2:
+# ----------------------------------------------------
+
+gawk '{for (i=0;i<21;i++) {t[i]=t[i+1];l[i]=l[i+1]};t[21]=$4;l[21]=$14-$16;if (NR>21){tt=t[0]*t[10]*t[20];if (tt!=0) print t[10],(l[10]-(l[0]+l[20])/2)}}' mhcb_14.meas > mhcb_dLi.meas
+
+gawk '{for (i=0;i<21;i++) {t[i]=t[i+1];l[i]=l[i+1]};t[21]=$4;l[21]=$14-$16;if (NR>21){tt=t[0]*t[10]*t[20];if (tt!=0) print t[10],(l[10]-(l[0]+l[20])/2)}}' monb_14.meas > monb_dLi.meas
+
+gawk '{for (i=0;i<21;i++) {t[i]=t[i+1];l[i]=l[i+1]};t[21]=$4;l[21]=$14-$16;if (NR>21){tt=t[0]*t[10]*t[20];if (tt!=0) print t[10],(l[10]-(l[0]+l[20])/2)}}' sodb_14.meas > sodb_dLi.meas
+
+
+# d) Plotting results:
+# --------------------
+
+ ./graph.py -f sodb_dLi.meas -s.- -l "sodb: PRN14"  -f mhcb_dLi.meas -s.- -l "mhcb: PRN14"  -f monb_dLi.meas -s.- -l "monb: PRN14"  --xn 55500 --xx 57000 --yn -0.05 --yx 0.07  --xl "time (s)" --yl  "Detrended STEC (metres of L1-L2 delay)" -t "MS Travelling Ionospheric Disturbance (MSTID) propagation"  --sv FIG/Ex6.png
+
+
+########################################################################
+
+
+
+
+
+# #########################################################################
+# #########################################################################
+#                          LABORATORY SESSION
+#                    Medium: Laboratory Work Projects 
+# #########################################################################
+# #########################################################################
+
+# LWP1: Electron Density Profile from Radio Occultations (RO)
+# -----------------------------------------------------------
+
+
+#========================================= RO.obs ===========================================
+#                            |<------ LEO ------>|<------- GPS ------->|
+#YY DoY HH.HH CODE PRN  elev  r_LEO AR_LEO DEC_LEO  r_GPS AR_GPS DEC_GPS   L1  L2   L1-L2 arc
+#                       (deg)  (km) (Deg)   (Deg)    (km)  (Deg)  (Deg)   (cycles)   (m)
+# 1  2    3    4    5    6       7    8       9       10     11     12     13  14     15  16
+#============================================================================================
+
+# Note:
+#   "elev" is the elevation of GPS-LEO ray from the local horizon of LEO satellite.
+
+
+# Program "abel.perl"
+# -------------------
+
+# This program computes the Ne(p) for a given ocultation ray LEO-GPS.
+#
+# The measurement is: 
+#   - The L1-L2 carrier measurement over a continuous arc of data 
+#     when the elevation of GPS-LEO ray has a negative elevation
+#     (elev<0) 
+
+
+#====== INPUT File =======
+#   1          2
+#  p(n)      L1-L2(n)
+#  (km)  (metres of L1-L2)
+#=========================
+
+#========== OUTPUT File ===========
+# 1   2          3             4
+# n  p(n)     L1-L2(n)        Ne(n)
+#    (km) (metres of L1-L2)  (e-/m3)
+#===================================
+
+
+# Selecting: CODE=l241 and PRN=02
+  grep l241 RO.obs|gawk '{if ($5==02 && $6<0) print $0}'> ro.tmp
+
+# Generating the input file
+  gawk '{printf "%9.5f %7.5f\n",$7*cos($6*3.14/180),$15}' ro.tmp > abl.tmp
+
+# Sort the file by impact parameter:
+  sort -k+1 -nr abl.tmp > abl.dat
+
+
+# Computing the Ne profile with program "abel.pl"
+  cat abl.dat| ./abel.perl > Ne.dat
+
+# Plotting results:
+
+  ./graph.py -f Ne.dat -x4 -y2 --xl "Ne(e-/m3)" --yl "p (km)" -t"Ne: COSMIC #4 Antenna #1, PRN02" --sv FIG/LWP1.1.png
+  ./graph.py -f Ne.dat -x4 -y'($2-6370)' --xl "Ne(e-/m3)" --yl "heigh (km)" -t"Ne: COSMIC #4 Antenna #1, PRN02" --sv FIG/LWP1.2.png
+
+
+
+#######################################################################
+#######################################################################
+
+# LWP2: Atmospheric Bending in a Radio Occultation (RO) 
+# ======================================================
+ 
+# Program "RO.pel"
+# ----------------
+
+# This program computes differences in time (d) between consecutive samples
+# for a given measurement (occultation: GPS-LEO) and Double Differences (DD) 
+# between pairs of GPS and LEO satellites.
+# 
+# The satellites associated to the occultation (GPS, LEO) as well as the
+# reference satellites (GPS0, LEO0) are hard codded in the program, but they 
+# can changed, as well.  
+
+# Input file: RO.obs.
+#
+#  With the current configuration, the "RO.pel" program:
+#   Computes results for:
+#        GPS= 02
+#        LEO= l241
+#   When needed uses as references:
+#         GPS0= 13
+#         LEO0= l251
+
+
+#============================== INPUT File:RO.obs ===========================================
+#                            |<------ LEO ------>|<------- GPS ------->|
+#YY DoY HH.HH CODE PRN  elev  r_LEO AR_LEO DEC_LEO  r_GPS AR_GPS DEC_GPS   L1  L2   L1-L2 arc
+#                       (deg)  (km) (Deg)   (Deg)    (km)  (Deg)  (Deg)   (cycles)   (m)
+# 1  2    3    4    5    6       7    8       9       10     11     12     13  14     15  16
+#============================================================================================
+
+
+#================================ OUTPUT File: =============================
+# 1    2   3   4   5    6   7   8      9      10      11     12     13   14  
+#sec CODE PRN  p  dRho dL1 dL2 dLc d(L1-Lc) d(L2-Lc) DDdRho DDdL1 DDdL2 DDLc
+#                                      (units m/s)       
+#===========================================================================
+
+
+# Execute (the file RO.obs, must be available in the directory)
+  ./RO.perl > bending.dat 
+
+# P1.- Plot "DDdL1-DDdRho" and "DDdL2-DDdRho" as a function of time and discuss the results found
+ ./graph.py -f bending.dat -x'($12-$11)' -y4  -l "DDdL1-DDdRho" -f bending.dat -x'($13-$11)' -y4  -l "DDdL2-DDdRho" --xl "m/s" --yl "p (km)" -t"COSMIC #4 Antenna #1, PRN02"  --xn -0.4 --xx 4  --sv FIG/LWP2.1.png
+
+# P2.-  Plot "dL1-dLc" and "DDdL1-DDdRho" as a function of time. Discuss results.
+ ./graph.py -f bending.dat -x9 -y4 -l "dL1-dLc" -f bending.dat -x'($12-$11)' -y4 -l "DDdL1-DDdRho" --xl "m/s" --yl "p (km)" -t"COSMIC #4 Antenna #1, PRN02"  --xn -0.4 --xx 4 --sv FIG/LWP2.2.png
+
+# P3.-  Plot "dL2-dLc" and "DDdL2-DDdRho" as a function of time. Discuss results.
+ ./graph.py -f bending.dat -x10 -y4 -l "dL2-dLc" -f bending.dat -x'($13-$11)' -y4 -l "DDdL1-DDdRho" --xl "m/s" --yl "p (km)" -t"COSMIC #4 Antenna #1, PRN02" --xn -0.4 --xx 4 --sv FIG/LWP2.3.png   
+
+# P4.-  Plot "DDdLc-DDdRho" as a function of time.Discuss results.
+ ./graph.py -f bending.dat -x'($14-$11)' -y4 --xn -0.1 --xx 0.3 --xl "m/s" --yl "p (km)" -t"DDdLc-DDdRho: COSMIC #4 Antenna #1, PRN02" --sv FIG/LWP2.4.png
+
+# P5.-  Plot "dL1-dRho" and "dL1-dLc" as a function of time. Discuss results.
+ ./graph.py -f bending.dat -x'($6-$5)' -y4 -l "dL1-dRho" -f bending.dat -x9 -y4 -l "dL1-dLc" --xl "m/s" --yl "p (km)" -t"COSMIC #4 Antenna #1, PRN02" --sv FIG/LWP2.5.png
+
+# P6.-  Plot "dL2-dRho" and "dL2-dLc" as a function of time. Discuss results.
+ ./graph.py -f bending.dat -x'($7-$5)' -y4 -l "dL2-dRho" -f bending.dat -x10 -y4 -l "dL2-dLc" --xl "m/s" --yl "p (km)" -t"COSMIC #4 Antenna #1, PRN02" --sv FIG/LWP2.6.png
+
+
+#######################################################################
+#######################################################################
+
+
+
+# LW3: Iono divergence on carrier smoothed code
+# =============================================
+
+# 1a) Reading RINEX file and generating MEAS file:
+# -----------------------------------------------
+
+ ./gLAB_linux -input:cfg meas.cfg -input:obs UPC33510.08O |gawk '{if ($6==3) print $0}'  > upc3.meas
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16
+#[MEAS YY Doy sec GPS PRN el Az N. list C1C  xx C1P L1P C2P L2P]
+
+
+# 1b) Computing C1 code multipath:
+# -------------------------------
+
+# "C1-L12"
+gawk '{print $4,$11-$14-3.09*($14-$16)-21.3}' upc3.meas > upc3.C1
+
+
+# 1c) Plotting raw (unsmoothed) measurements for PRN03:
+# ----------------------------------------------------
+
+ ./graph.py -f upc3.C1 -s- -l "C1 Raw" --xn 35000 --xx 40000 --yn -5 --yx 5  --xl "time (s)" --yl "metres" -t  "PRN03, C1 Raw: unsmoothed measurement noise and multipath"  --sv FIG/LWP3.1.png
+
+
+
+# 2) Apply the Hatch filter to smooth the code using a filter length of 
+#    N=100 samples (as the measurements are at 1Hz,this means 100 seconds 
+#    smoothing). Thence, as in previous case, depict the multipath and noise 
+#    of the smoothed code
+# --------------------------------------------------------------------------
+
+#  2a) Smoothing code (T=100sec):
+#   -------------------------
+gawk 'BEGIN{Ts=100}{if (NR>Ts){n=Ts}else{n=NR};C1s=$11/n+(n-1)/n*(C1s+($14-L1p));L1p=$14; print $4,C1s-$14-3.09*($14-$16)-21.3}' upc3.meas > upc3.C1s100
+
+
+#  2b) Plotting raw (unsmoothed) measurements for PRN03:
+# ----------------------------------------------------
+ ./graph.py -f upc3.C1 -s- -l "C1 Raw" -f upc3.C1s100 -s.- --cl r -l "C1 SF smoothed (100s)" --xn 35000 --xx 40000 --yn -5 --yx 5  --xl "time (s)" --yl "metres" -t  "PRN03: C1 100s smoothing and divergence of ionosphere"  --sv FIG/LWP3.2.png
+
+
+
+# 3) Removing the ionospheric refraction of C1 code and L1 carrier measurements 
+#    and apply the Hatch filter to compute the DFree smoothed code: 
+# --------------------------------------------------------------------------
+
+# 3a) Apply the Hatch filter to compute the DFree smoothed code  (T=100sec):
+#   ------------------------------------------------------------
+
+gawk 'BEGIN{Ts=100}{if (NR>Ts){n=Ts}else{n=NR};C1f=$11;L1f=$14+2*1.55*($14-$16);C1fs=C1f/n+(n-1)/n*(C1fs+(L1f-L1p));L1p=L1f; print $4,C1fs-L1f-21.3}' upc3.meas  > upc3.C1DFs100
+
+
+# 3b) Plotting previous results (comparing, Row, SF and DFree smoothing):
+# -----------------------------
+
+ ./graph.py -f upc3.C1 -s- -l "C1 Raw" -f upc3.C1s100 -s.- --cl r -l "C1 SF smoothed (100s)" -f upc3.C1DFs100 -s.- --cl g -l "C1 DFree smoothed (100s)" --xn 35000 --xx 40000 --yn -5 --yx 5  --xl "time (s)" --yl "metres" -t  "PRN03: C1 100s smoothing and divergence of ionosphere"  --sv FIG/LWP3.3.png
+
+
+
+# 4) Generate the ionosphere-free combinations of code and carrier measurements 
+#    to compute the Ionosphere Free (IFree) smoothed code: 
+# -----------------------------------------------------------------------------
+
+# a) Compute the unsmoothed PC code:
+gawk 'BEGIN{g=(77/60)**2}{pc=(g*$13-$15)/(g-1); lc=(g*$14-$16)/(g-1);print  $4,pc-lc-3.5}' upc3.meas > upc3.PC
+
+# b) Apply the Hatch filter to compute the IFree smoothed code 
+
+gawk 'BEGIN{g=(77/60)**2}{pc=(g*$13-$15)/(g-1);lc=(g*$14-$16)/(g-1);if (NR>100){n=100}else{n=NR};ps=1/n*pc+((n-1)/n*(ps+lc-lcp));lcp=lc;print $4,ps-lc-3.5}' upc3.meas > upc3.PCs100
+
+# c) Plot results: comparing the unsmoothed PC with the smoothed 100s PC
+
+ ./graph.py -f upc3.PC -s- -l "IFree raw"  --cl y -f upc3.PCs100 -s.- --cl black -l "IFree smth (100s)" --xn 35000 --xx 40000 --yn -5 --yx 5  --xl "time (s)" --yl "metres" -t  "Ionosphere-Free combination smoothing: 100 seconds"  --sv FIG/LWP3.4.png
+
+
+# 5) Repeat previous plots but using: N=360, N=3600 and compare results. 
+#    Plot also the ionospheric delay (from L1-L2):
+# ----------------------------------------------------------------------
+ 
+# 5a) Smoothing with T=360 seconds filter length.
+# -------------------------------------------------------------------
+
+# Single-Freq (360 sec)
+gawk 'BEGIN{Ts=360}{if (NR>Ts){n=Ts}else{n=NR};C1s=$11/n+(n-1)/n*(C1s+($14-L1p));L1p=$14; print $4,C1s-$14-3.09*($14-$16)-21.3}' upc3.meas > upc3.C1s360
+
+
+# DFree (360 sec)"
+gawk 'BEGIN{Ts=360}{if (NR>Ts){n=Ts}else{n=NR};C1f=$11;L1f=$14+2*1.55*($14-$16);C1fs=C1f/n+(n-1)/n*(C1fs+(L1f-L1p));L1p=L1f; print $4,C1fs-L1f-21.3}' upc3.meas  > upc3.C1DFs360
+
+ ./graph.py -f upc3.C1 -s- -l "C1 Raw"  -f upc3.C1s360 -s.- --cl r -l "C1 SF smoothed (360)"  -f upc3.C1DFs360 -s.- --cl g -l "C1 DFree smoothed (360)" --xn 35000 --xx 40000 --yn -5 --yx 5  --xl "time (s)" --yl "metres" -t  "PRN03: C1 360s smoothing and divergence of ionosphere"  --sv FIG/LWP3.5a1.png
+
+
+# IFree (360 sec)
+gawk 'BEGIN{g=(77/60)**2}{pc=(g*$13-$15)/(g-1); lc=(g*$14-$16)/(g-1);print  $4,pc-lc-3.5}' upc3.meas > upc3.pc
+
+gawk 'BEGIN{g=(77/60)**2}{pc=(g*$13-$15)/(g-1);lc=(g*$14-$16)/(g-1);if (NR>360){n=360}else{n=NR};ps=1/n*pc+((n-1)/n*(ps+lc-lcp));lcp=lc;print $4,ps-lc-3.5}' upc3.meas > upc3.PCs360
+
+ ./graph.py -f upc3.pc -s- --cl y -l "IFree raw"  -f upc3.PCs360 -s.- --cl black -l "IFree smth (360s)" --xn 35000 --xx 40000 --yn -15 --yx 15  --xl "time (s)" --yl "metres" -t  "Ionosphere-Free combination smoothing: 360 seconds"  --sv FIG/LWP3.5a2.png
+
+
+# 5b) Smoothing with T=3600 seconds filter length.
+# -------------------------------------------------------------------
+
+# Single-Freq (3600 sec)
+gawk 'BEGIN{Ts=3600}{if (NR>Ts){n=Ts}else{n=NR};C1s=$11/n+(n-1)/n*(C1s+($14-L1p));L1p=$14; print $4,C1s-$14-3.09*($14-$16)-21.3}' upc3.meas > upc3.C1s3600
+
+
+# DFree (3600 sec)"
+gawk 'BEGIN{Ts=3600}{if (NR>Ts){n=Ts}else{n=NR};C1f=$11;L1f=$14+2*1.55*($14-$16);C1fs=C1f/n+(n-1)/n*(C1fs+(L1f-L1p));L1p=L1f; print $4,C1fs-L1f-21.3}' upc3.meas  > upc3.C1DFs3600
+
+
+ ./graph.py -f upc3.C1 -s- -l "C1 Raw"  -f upc3.C1s3600 -s.- --cl r -l "C1 SF smoothed (3600)"  -f upc3.C1DFs3600 -s.- --cl g -l "C1 DFree smoothed (3600)" --xn 35000 --xx 40000 --yn -5 --yx 5  --xl "time (s)" --yl "metres" -t  "PRN03: C1 3600s smoothing and divergence of ionosphere"  --sv FIG/LWP3.5b1.png
+
+
+# IFree (3600 sec)
+gawk 'BEGIN{g=(77/60)**2}{pc=(g*$13-$15)/(g-1); lc=(g*$14-$16)/(g-1);print  $4,pc-lc-3.5}' upc3.meas > upc3.pc
+
+gawk 'BEGIN{g=(77/60)**2}{pc=(g*$13-$15)/(g-1);lc=(g*$14-$16)/(g-1);if (NR>3600){n=3600}else{n=NR};ps=1/n*pc+((n-1)/n*(ps+lc-lcp));lcp=lc;print $4,ps-lc-3.5}' upc3.meas > upc3.PCs3600
+
+ ./graph.py -f upc3.pc -s- --cl y -l "IFree raw"  -f upc3.PCs3600 -s.- --cl black -l "IFree smth (3600s)" --xn 35000 --xx 40000 --yn -15 --yx 15  --xl "time (s)" --yl "metres" -t  "Ionosphere-Free combination smoothing: 3600 seconds"  --sv FIG/LWP3.5b2.png
+
+
+
+# 5c) Plotting the STEC for PRN13:
+# -------------------------------
+
+ ./graph.py -f upc3.meas -x4 -y'1.545*($14-$16)+12.5' -s.- --cl r -l "1.546*(L1-L2)" --xn 35000 --xx 40000 --yn 1 --yx 3 --xl "time (s)" --yl "metres of L1 delay" -t "STEC PRN03 (shifted)" --sv FIG/LWP3.5c.png
+
+
+
+# 6) Iono Divergence in Halloween Storm:
+# --------------------------------------
+# Repeat the previous exercise using the RINEX file amc23030.03o_1Hz 
+# collected for the station amc2 during the Halloween storm. 
+# Take N=100 (i.e, filter smoothing time constant t=100 sec).
+
+# 6a) Reading RINEX file and generating MEAS file and selecting the satellite PRN 13:
+#-----------------------------------------------------------------------------------
+
+ ./gLAB_linux -input:cfg meas.cfg -input:obs amc23030.03o_1Hz |gawk '{if ($4>56500 && $6==13) print $0}'  > amc2.meas
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16
+#[MEAS YY Doy sec GPS PRN el Az N. list C1C  xx C1P L1P C2P L2P]
+
+
+# 6b) Computing C1 code multipath:
+# -------------------------------
+# "C1-L12"
+gawk '{print $4,$11-$14-3.09*($14-$16)+2.0}' amc2.meas > amc2.C1
+
+
+
+# 6c) Applying Hatch filter to smooth the code, using a filter length of 
+#     n=100 samples. Thence, repeating the detrending again.
+# ---------------------------------------------------------------------
+
+gawk 'BEGIN{Ts=100}{if (NR>Ts){n=Ts}else{n=NR};C1s=$11/n+(n-1)/n*(C1s+($14-L1p));L1p=$14; print $4,C1s-$14-3.09*($14-$16)+2.0}' amc2.meas > amc2.C1s100
+
+
+
+# 6d) Removing the ionospheric refraction of code and carrier measurements (DFree):
+#-------------------------------------------------------------------------
+
+gawk 'BEGIN{Ts=100}{if (NR>Ts){n=Ts}else{n=NR};C1f=$11;L1f=$14+2*1.55*($14-$16);C1fs=C1f/n+(n-1)/n*(C1fs+(L1f-L1p));L1p=L1f; print $4,C1fs-L1f+2.0}' amc2.meas  > amc2.C1DFs100
+
+
+
+# 6f) Plotting Results:
+# -----------------------------
+
+ ./graph.py -f amc2.C1 -s- -l "C1 Raw" -f amc2.C1s100 -s.- --cl r -l "C1 SF smoothed" -f amc2.C1DFs100 -s.- --cl g -l "C1 DFree smoothed" --xn 56500 --xx 78160 --yn -8 --yx 5  --xl "time (s)" --yl "metres" -t  "PRN13, C1 100s smoothing and divergence of ionosphere"  --sv FIG/LWP3.6a.png
+
+                                                                                      
+# 6g) Plotting the STEC for PRN13:
+# -------------------------------
+
+ ./graph.py -f amc2.meas -x4 -y'1.545*($14-$16)' -s.- --cl r -l "1.546*(L1-L2)" --xn 56500 --xx 78160 --yn 0 --yx 120 --xl "time (s)" --yl "metres of L1 delay" -t  "STEC PRN13 (shifted)" --sv FIG/LWP3.6b.png
+
+
+#######################################################################
+#######################################################################
+
+
+# LWP4: Second-order ionospheric effects
+# =====================================
+
+# 1a) Show that there is a unique linear combination of three carriers 
+#     cancelling both the geometry and the (first order) ionospheric 
+#     refraction. Apply results to the L1, L2 and L5 signals. 
+
+# GPS: [L1 L2 L5]
+# ---------------
+#
+# With octave (or MATLAB):
+#   b12=154/120
+#   b15=154/115
+#
+#
+#   A=[ 1 1  1 ; 1 b12^2 b15^2 ;  1 b12^3 b15^3]
+#   y=[ 0 0 1]'
+#
+#   LI2 coefficients:   
+#   -----------------
+#     x=inv(A)*y 
+#        ==> x=[6.2872  -34.0843   27.7971]
+#  
+#   sigma_LI2:
+#   ----------
+#     sqrt(x'*x)
+#        ==> 44.429
+
+
+
+# 1b) Make a plot to depict the geometry-free and first-order 
+#     ionosphere-free combination of GPS carrier phase measurements 
+#     [L1,L2,L5]. Use files l5dt1260.09o, l5dt1260.09n (and sat. PRN01).
+
+# 1b1) Reading RINEX file and generating MEAS file:
+# -----------------------------------------------
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16  17  18  19  20
+#[MEAS YY Doy sec GAL PRN el Az N. list C1C L1C C1P L1P C2C L2C C2P L2P C5X L5X ]
+#                                        x       x   x           x   x   x   x
+
+ ./gLAB_linux -input:cfg meas.cfg -input:obs l5dt1260.09o -input:nav l5dt1260.09n -pre:dec 0| grep GPS > l5dt.meas
+
+
+# 1b2) Computing LI2 combination for satellite PRN01: Output file content  [sec LI2 elev]
+# --------------------------------------------------
+
+gawk '{if ($6==01) {print $4,6.287*$14-34.084*$18+27.797*$20,$7}}' l5dt.meas > LI2.dat
+
+
+# 1b3) Plotting results:
+# ---------------------
+
+ ./graph.py -f LI2.dat -x1 -y2 -l "LI2[125]"  --xn 29700 --xx 49200  --yn 5128 --yx 5134 --xl "time (s)" --yl "metres of L1 delay" -t "Geometry-free and first order iono-free comb."  --sv FIG/LWP4.1b1.png
+
+# 1b4) Adding the elevation to plot (and shifting the LI2 by 5133 to align with x-axis):
+# ----------------------------------
+
+ ./graph.py -f LI2.dat -x1 -y'($2-5133)' -l "LI2[125]" -s- -f LI2.dat -x1 -y'($3/10)' -l "Elev/10" -s- --xn 29700 --xx 49200 --yn -7 --yx 7 --xl "time (s)" --yl "metres of L1 delay" -t "Geometry-free and first order iono-free combination" --sv FIG/LWP4.1b2.png
+
+
+
+# 2) Using the following values for the APCs [0.09, 0.12, 0.28] (metres)
+#    plot the previous expression and discuss results.
+
+
+# 2a) generating the LI2 combination corrected by the APCs: Output file content  [sec LI2 elev]
+# --------------------------------------------------
+
+gawk '{if ($6==01) {s=sin($7*3.14/180); print $4,6.287*($14+0.09*s)-34.084*($18+0.12*s)+27.797*($20+0.28*s),$7}}' l5dt.meas > LI2corr.dat
+
+
+# 2b) Plotting results:
+# ---------------------
+
+ ./graph.py -f LI2corr.dat -x1 -y'($2-5133)' -s- -l "LI2[125]" -f LI2.dat -x1 -y'($3/10)' -l "Elev/10" -s- --xn 29700 --xx 49200 --yn -7 --yx 7 --xl "time (s)" --yl "metres of L1 delay" -t "Geometry-free and first order iono-free comb.: APC correction applied" --sv FIG/LWP4.2a.png
+
+
+
+
+
+# #########################################################################
+# #########################################################################
+#                          LABORATORY SESSION
+#                          Advanced: Homework
+# #########################################################################
+# #########################################################################
+
+
+# HW1: APC effect over the LI2 combination
+# ========================================
+
+#    Study  the effect of the Antenna Phase Centre (APC) over the LI2 combination 
+#    in order to analyse the elevation dependent pattern seen in previous of LWP4 
+#    and HW1 plots for the GPS signals.
+
+
+# Question 1. Mathematical modelling. 
+# ----------
+#
+#   See the mathematical modelling in the slides.
+
+
+# Question 2.
+# -----------
+#
+# 2a) Knowing the L1 and L2 signals APCs, estimate the L5 APC.
+#
+#  The file l5dt1260.09o has been collected by a TRIMBLE NETR8 
+#  receiver with TRM59800.00 antenna. According the ANTEX file i
+#  igs05_1525.atx the antenna phase centres of L1 and L2 are given by: 
+#
+# ...................... igs05_1525.atx .................
+# TRM59800.00     NONE                 TYPE / SERIAL NO
+#   G01                                START OF FREQUENCY
+#      0.37      0.86     90.02        NORTH / EAST / UP
+#   G02                                START OF FREQUENCY
+#      0.09      0.01    119.89        NORTH / EAST / UP
+# .......................................................
+#
+# Taking into account previous results, estimate the APC of L5 signal.
+
+
+
+
+#**********   PRELIMINARY COMPUTATIONS  *******************************
+#         Ionosphere-free and geometry-free combination
+#         *********************************************
+#
+# Next sentences have been executed in previous LWP4:
+#
+# Reading RINEX file and generating MEAS file:
+# -------------------------------------------
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16  17  18  19  20
+#[MEAS YY Doy sec GAL PRN el Az N. list C1C L1C C1P L1P C2C L2C C2P L2P C5X L5X ]
+
+ ./gLAB_linux -input:cfg meas.cfg -input:obs l5dt1260.09o -input:nav l5dt1260.09n -pre:dec 0| grep GPS > l5dt.meas
+
+
+# Computing LI2 combination for satellite PRN01: Output file content  [sec LI2 elev]
+# ----------------------------------------------
+
+gawk '{if ($6==01) {print $4,6.287*$14-34.084*$18+27.797*$20,$7}}' l5dt.meas > LI2.dat
+#**********************************************************************
+
+
+# The APC of L5 signal, together with the carrier ambiguity (bias), 
+# can be estimated from carrier measurements along a continuous 
+# data arch (for the three carriers) as follows [see slides]: 
+
+
+# iii) Neglecting the biases in the North and East components for L1,
+# ...  L2 and L5 antenna phase centres, estimate the antenna phase
+#      centre in the L5 signal.
+#      --> Estimating the APC for L5
+
+## Let be APC_k=Dk*s, and thence, rho=Lk+Dk*s
+
+# sum[ak*(Lk+Dk*s)]=bias ==> (a1*L1+a2*L2+a5*L3)+a1*D1*s+a2*D2*s=Bias-a5*D5*s ==> 
+#                        
+#                        ==> a1*L1+a2*L2++a5*L5+(a1*D1+a2*D2)*s=[1 -a5*s]*[Bias D5]'
+#   
+# Considering an equation for each epoch, an equations system "y=A.x" can be build 
+# where the data vector "y" and system matrix "A" and unknown parameters "x" 
+# are given by:
+#  
+#  y:=a1*L1+a2*L2++a5*L5+(a1*D1+a2*D2)*s
+#
+#  A:=[1 -a5*s]
+#   
+#  x:=[Bias D5]'
+#
+#
+
+# Thence, the vector "y" and system matrix "A" can be generated as follows (for satellite PRN01):
+# (select the time interval: 30000<t<49000).
+
+gawk 'BEGIN{a1=6.287;a2=-34.084;a5=27.797;D1=0.09002;D2=0.11989}{if ($6==01 && $4> 30000 && $4< 49000) {s=sin($7*3.14/180);y=a1*$14+a2*$18+a5*$20+(a1*D1+a2*D2)*s;print y,1,-a5*s}}' l5dt.meas > m.dat
+
+# File "m.dat" contains "1266" rows and "3" columns. To read this file by Octave program 
+# (90% similar to MATLAB, but free-software), it is necessary to add the following header i
+# (to file "m.dat"). Do not forget the "#":
+
+# .... m.dat header....
+# name: M
+# type: matrix
+# rows: 1266
+# columns: 3
+# ...................
+
+# After adding previous header in file "m.dat", run Octave by executing:
+# octave
+
+# and thece, (withing the octave environment), execute (now, without the "#"):
+
+# load m.dat
+# Y=M(:,1);
+# A=M(:,2:3);
+# X=inv(A'*A)*A'*Y
+#
+
+# The result is:
+#  ==> X =[5.1331e+03 2.8279e-01]
+
+
+# 2b) Using the estimated values for the APCs [0.09, 0.12, 0.28] and Bias (metres)
+#    plot the LI2 combination corrected by the APCs and bias:
+
+
+# 2b1) generating the LI2 combination corrected by the APCs: Output file content  [sec LI2 elev]
+# --------------------------------------------------
+
+gawk '{if ($6==01) {s=sin($7*3.14/180); print $4,6.287*($14+0.09*s)-34.084*($18+0.12*s)+27.797*($20+0.28*s)-5133,$7}}' l5dt.meas > LI2c.dat
+
+
+# 2b2) Plotting the LI2 combination corrected by the antenna phase centre and bias values:
+# ---------------------
+
+ ./graph.py -f LI2c.dat -x1 -y2 -s- -l "LI2[125]" -f LI2c.dat -x1 -y'($3/10)' -s- -l "Elev/10" --xn 29700 --xx 49200 --yn -7 --yx 7 --xl "time (s)" --yl "metres of L1 delay" -t "Geometry-free and first order iono-free comb.: APC correction applied" --sv FIG/HWP1.2b.png
+
+
+#######################################################################
+
+
+# HW2: Combinations of three-frequency measurements
+# =================================================
+
+# This HP2 is an extension of previous LWP4 and it is devoted to analyse the 
+# three different combinations of tree frequency signals (see [R-1]):
+
+# 1.- The first and second order ionosphere-free combination (LC2, PC2).
+# 2.- The geometry-free and second-order ionosphere-free combination (LI1, PI1).
+# 3.- The geometry-free and first-order ionosphere-free combination (LI2, PI2).
+
+
+# Preliminary: Combinations of Three-frequency signals derivation:
+# -----------
+
+# Resolution:
+#------------
+# Use Octave or MATLAB to execute the following calculations:
+
+#   octave
+
+# GPS: [C1 C2 C5]
+# ---------------
+#
+# With octave (or MATLAB):
+#   g12=(154/120)^2;g15=(154/115)^2
+#
+#   A=[ 1 +1  -2 ; 1 g12 -2*g12^(3/2) ;  1 g15 -2*g15^(3/2)]
+#   inv(A)
+#   diag(sqrt(inv(A'*A)))
+#
+
+
+
+# Galileo: [C1 C7 C8]
+# -------------------
+#
+#   g17=(154/118)^2;g18=(154/116.5)^2
+#
+#   A=[ 1 1  -2 ; 1 g17 -2*g17^(3/2) ;  1 g18 -2*g18^(3/2)]
+#   inv(A)
+#   diag(sqrt(inv(A'*A)))
+
+
+
+# A) First order and Second order Iono-Free combination analysis
+# --------------------------------------------------------------
+
+# Answer to question A.1:  
+#
+#   See slides.
+
+# Answer to question A.2: 
+# First-order and second-order iono free code combination noise: 
+# Galileo [E1 E7 E8]
+# ----------------------------------------------------------------
+
+# A2a) Generating the MEAS file:
+#....
+ ./gLAB_linux -input:cfg meas.cfg -input:obs gien327sw.09o -input:sp3 orb15591.sp3 > gien.meas
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16  17  18
+#[MEAS YY Doy sec GAL PRN el Az N. list C1B L1B C1C L1C C7Q L7Q C8Q L8Q]
+
+
+# A2b) Computing the combinations for PRN06. 
+#      The following file will be generated: [sec PC-LC PC2-LC2]
+
+gawk '{if ($5=="GAL" && $6==16) {print $4,$11-1.42*($15-$11)-($12+1.42*($12-$16)),6.96*($11-$12)-78.32*($15-$16)+72.35*($17-$18)}}' gien.meas > gienPc2Lc2.dat
+
+
+# A2c) Plotting results:
+
+ ./graph.py -f gienPc2Lc2.dat  -x1 -y3 -l "PC2-LC2[178]"  -f gienPc2Lc2.dat  -x1 -y2 -l "PC-LC[17]" --cl r --yn -100 --yx 100 --xl "time (s)" --yl "metres"  -t "1st order and 1st+2nd order ionosphere free combination noise" --sv FIG/HWP2.A2c.png
+
+
+# Answer to question A.2: 
+# First-order and second-order iono free code combination noise: 
+# GPS [L1 L2 L5]
+# ----------------------------------------------------------------
+
+# A3a) Generating the MEAS file:
+#....
+ ./gLAB_linux -input:cfg meas.cfg -input:obs l5dt1260.09o -input:nav l5dt1260.09n -pre:dec 0| grep GPS > l5dt.meas
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16  17  18  19  20
+#[MEAS YY Doy sec GAL PRN el Az N. list C1C L1C C1P L1P C2C L2C C2P L2P C5X L5X ]
+
+
+# A3b) Computing the combinations for PRN06. 
+#      The following file will be generated: [sec PC-LC PC2-LC2]
+
+gawk '{if ($6==01) {print $4,$13-1.55*($17-$13)-($14+1.55*($14-$18)),7.08*($13-$14)-26.13*($17-$18)+20.05*($19-$20)}}' l5dt.meas > l5dtPc2Lc2.dat
+
+# A3c) Plotting results:
+
+ ./graph.py -f l5dtPc2Lc2.dat -x1 -y'($3+5140)' -l "PC2-LC2[125]"  -f l5dtPc2Lc2.dat -x1 -y2 -l "PC-LC[12]" --cl r --xn 29700 --xx 49200 --yn -100 --yx 100 --xl "time(s)" --yl "metres"  -t "1st order and 1st+2nd order ionosphere free combination noise" --sv FIG/HWP2.A3c.png
+
+
+
+
+
+# B) Geometry-free & Second-order Iono-Free combination analysis 
+# --------------------------------------------------------------
+
+# Answer to question B.1:  
+#
+#   See slides.
+
+# Answer to question B.2: 
+# Geometry-free & Second-order Iono-Free code combination noise: 
+# Galileo [E1 E7 E8]
+# ----------------------------------------------------------------
+
+# B2a) Generating the MEAS file:
+#....
+ ./gLAB_linux -input:cfg meas.cfg -input:obs gien327sw.09o -input:sp3 orb15591.sp3 > gien.meas
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16  17  18
+#[MEAS YY Doy sec GAL PRN el Az N. list C1B L1B C1C L1C C7Q L7Q C8Q L8Q]
+
+
+# B2b) Computing the combinations for PRN06. 
+
+# - Code: Geometry-free and 2nd-order iono-free combination computation:
+#         The following file will be generated: [sec PI PI1]
+
+gawk '{if ($5=="GAL" && $6==16) {print $4,-1.42*($11-$15),-12.11*$11+182.38*$15-170.27*$17}}' gien.meas > gienPi1.dat
+
+ ./graph.py -f gienPi1.dat  -x1 -y'($3+3268)' -l "PI1[178]"  -f gienPi1.dat  -x1 -y'($2+384)' -l "PI[17]" --cl r --yn -250 --yx 250 --xl "time (s)" --yl "metres of L1 delay"  -t "Code: Geometry-free and 2nd order ionosphere free combination: gien 327" --sv FIG/HWP2.B2b1.png
+
+# - Carrier: Geometry-free and 2nd-order iono-free combination computation:
+#            The following file will be generated: [sec LI LI1]
+
+gawk '{if ($5=="GAL" && $6==16) {print $4,1.42*($12-$16),12.11*$12-182.38*$16+170.27*$18}}' gien.meas > gienLi1.dat
+
+ ./graph.py -f gienLi1.dat  -x1 -y'($3-3268)' -l "LI2[178]"  -f gienLi1.dat  -x1 -y'($2-384)' -l "LI[17]" --cl r --yn -10 --yx 10 --xl "time (s)" --yl "metres of L1 delay"  -t "Carrier: Geometry-free and 2nd order ionosphere free combination: gien327" --sv FIG/HWP2.B2b2.png
+
+
+
+# Answer to question B.3: 
+# Geometry-free & Second-order Iono-Free code combination noise: 
+# GPS [L1 L2 L5]
+# ----------------------------------------------------------------
+
+# B3a) Generating the MEAS file:
+#....
+ ./gLAB_linux -input:cfg meas.cfg -input:obs l5dt1260.09o -input:nav l5dt1260.09n -pre:dec 0| grep GPS > l5dt.meas
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16  17  18  19  20
+#[MEAS YY Doy sec GAL PRN el Az N. list C1C L1C C1P L1P C2C L2C C2P L2P C5X L5X ]
+
+
+# B3b) Computing the combinations for PRN06. 
+
+# - Code: Geometry-free and 2nd-order iono-free combination computation:
+#         The following file will be generated: [sec PI PI1]
+
+gawk '{if ($6==01) {print $4,-1.55*($13-$17),-12.368*$13+60.215*$17-47.847*$19}}' l5dt.meas > l5dtPi1.dat
+
+ ./graph.py -f l5dtPi1.dat -x1 -y'($3-3446)' -l "PI1[125]"  -f l5dtPi1.dat  -x1 -y2 -l "PI[12]" --cl r --yn -250 --yx 250 --xl "time (s)" --yl "metres of L1 delay"  -t "Code: Geometry-free and 2nd order iono free comb.: l5dt126"   --sv FIG/HWP2.B3b1.png
+
+
+# - Carrier: Geometry-free and 2nd-order iono-free combination computation:
+#            The following file will be generated: [sec LI LI1]
+
+gawk '{if ($6==01) {print $4,1.55*($14-$18),6.287*$14-34.084*$18+27.797*$20}}' l5dt.meas > l5dtLi1.dat
+
+ ./graph.py -f l5dtLi1.dat -x1 -y'($3-5133)' -l "LI1[125]"  -f l5dtLi1.dat  -x1 -y2 -l "LI[12]" --cl r --yn -10 --yx 10 --xl "time (s)" --yl "metres of L1 delay"  -t "Carrier: Geometry-free and 2nd order iono free comb.: l5dt126"   --sv FIG/HWP2.B3b2.png
+
+
+
+
+
+
+# C) Geometry-Free & First-order Iono-Free combination analysis 
+# --------------------------------------------------------------
+
+# Answer to question C.1:  
+#
+#   See slides.
+
+# Answer to question C.2: 
+# Geometry-free & First-order Iono-Free code combination noise: 
+# Galileo [E1 E7 E8]
+# ----------------------------------------------------------------
+
+# C2a) Generating the MEAS file:
+#....
+ ./gLAB_linux -input:cfg meas.cfg -input:obs gien327sw.09o -input:sp3 orb15591.sp3 > gien.meas
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16  17  18
+#[MEAS YY Doy sec GAL PRN el Az N. list C1B L1B C1C L1C C7Q L7Q C8Q L8Q]
+
+# A2b) Computing the combinations for PRN06. 
+#      The following file will be generated: [sec LI2 Elev/10]
+
+gawk '{if ($5=="GAL" && $6==16) {print $4,6.15*$12-104.07*$16+97.92*$18,$7/10}}' gien.meas > gienLi2.dat
+
+# A2c) Plotting results:
+
+ ./graph.py -f gienLi2.dat -x1 -y'($2-1660)' -l "LI2[178]" -s- -f gienLi2.dat -x1 -y3 -l "Elev/10" -s- --yn -7 --yx 7 --xl "time (s)" --yl "metres of L1 delay"  -t "Carrier: Geometry-free and 1st order iono free comb.: gien327" --sv FIG/HWP2.C2c.png
+
+
+
+# Answer to question C.3: 
+# First-order and second-order iono free code combination noise: 
+# GPS [L1 L2 L5]
+# ----------------------------------------------------------------
+
+# C3a) Generating the MEAS file:
+#....
+ ./gLAB_linux -input:cfg meas.cfg -input:obs l5dt1260.09o -input:nav l5dt1260.09n -pre:dec 0| grep GPS > l5dt.meas
+
+#  1    2  3   4   5   6   7  8 9   10   11  12  13  14  15  16  17  18  19  20
+#[MEAS YY Doy sec GAL PRN el Az N. list C1C L1C C1P L1P C2C L2C C2P L2P C5X L5X ]
+
+
+# C3b) Computing the combinations for PRN06. 
+#      The following file will be generated: [sec LI2 Elev/10]
+
+
+gawk '{if ($6==01) {print $4,6.287*$14-34.084*$18+27.797*$20,$7/10}}' l5dt.meas > LI2.dat
+
+
+# C3c) Plotting results:
+# ---------------------
+
+ ./graph.py -f LI2.dat -x1 -y'($2-5133)' -l "LI2[125]" -s- -f LI2.dat -x1 -y3 -l "Elev/10" -s- --xn 29700 --xx 49200 --yn -7 --yx 7 --xl "time (s)" --yl "metres of L1 delay" -t "Carrier: Geometry-free and 1st order iono free comb.: l5dt126" --sv FIG/HWP2.C3c.png
+
+
+
+
+#######################################################################
+
+
+# HW3: Theoretical exercises on 2nd order ionosphere 
+# ==================================================
+
+# Question 1:
+# -----------
+# a) Show that the second order ionospheric delay on the L1 carrier produced 
+#    by 10 TECU of STEC is less than 2 millimetres. 
+
+#  f1=1575.420e6
+#  c=2.99792458e8
+#  Bo=4e-5
+#  STEC=1e17
+
+#  I2 = 7427*c*Bo*STEC/2/f1^3  [this is an upperbound, taking "cos(theta)=1"]
+#                               in the formula given in the slides.
+#     ==> I2= 0.0011389 metres
+
+
+# b) Which values would reach I2 in the Halloween Ionospheric Storm 
+#  (October 30th 2003) analysed in exercise 3?.
+#
+#  Taking for instance as reference the largest value seen in the plots of 
+#     Exercise 3:
+#     STEC= 65 m of L1 delay= 406.32 TECUs  ==> I2=0.046 metres of L1 delay
+#
+#        Note: 1TECU=40.3/f1^2*1e16=0.16237 metres of delay in L1 
+
+
+
+# Question 2:
+# -----------
+
+# Assuming an accuracy of 5TECUs in the STEC estimation from smoothed PI and
+# public domain DCBs, thence, the accuracy of I2 estimate will be better than
+# a half of millimetres (because 10 TECUs ==> ~ 1mm as seen in Question 1).
+
+
+
+# Question 3:
+# -----------
+
+# Form previous results it follows that:
+#
+#  - Estimation noise of I2 from LI2 combination:
+#          GPS [L1, L2, L5]: sigma=  78 *sigma_L1 ~ 0.15 m    
+#      Galileo [E1, E7, E8]: sigma= 250 *sigma_E1 ~ 0.50 m
+#
+#  - Estimation error from a MODEL (using smoothed PI and DCBs):
+#                      Error ~ 0.0005 m   (see previous Question 2)
+
+#  From previous results, it is clear that is better to use a MODEL.
+
+

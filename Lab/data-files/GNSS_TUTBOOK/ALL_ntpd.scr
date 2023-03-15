@@ -1,0 +1,4 @@
+./ntpd_tut1.scr > ntpd_tut1.log
+./ntpd_tut2.scr > ntpd_tut2.log
+./ntpd_tut3.scr > ntpd_tut3.log
+./ntpd_tut5.scr > ntpd_tut5.log
