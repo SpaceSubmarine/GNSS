@@ -1,0 +1,4 @@
+PDGPS_English.tgz filter=lfs diff=lfs merge=lfs -text
+PDGPS_Spanish.tgz filter=lfs diff=lfs merge=lfs -text
+Theory/GNSS_Data_Processing_Theory_Lectures.pdf filter=lfs diff=lfs merge=lfs -text
+CDROM_ESA_GNSS-Book_TM-23_Vol_II.iso filter=lfs diff=lfs merge=lfs -text
