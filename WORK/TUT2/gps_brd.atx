@@ -1,0 +1,553 @@
+     1.3            M                                       ANTEX VERSION / SYST
+A                                                           PCV TYPE / REFANT
+                                                            COMMENT
+   This file contains the ANTEX data for all GPS            COMMENT
+   PRN's from 1 Jan 2009 to 03 March 2010                   COMMENT
+                                                            COMMENT
+   Author: Adria Rovira Garcia                              COMMENT
+Group of Astronomy and GEomatics (gAGE/UPC)                 COMMENT
+                                                            END OF HEADER
+                                                            START OF ANTENNA    
+BLOCK IIA           G01                 G037      1993-032A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2008    10    23     0     0    0.0000000                 VALID FROM          
+  2009     1     6    23    59   59.9999999                 VALID UNTIL         
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIA           G03                 G033      1996-019A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1996     3    28     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL            
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA   
+                                                            START OF ANTENNA    
+BLOCK IIA           G04                 G034      1993-068A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1993    10    26     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA 
+                                                            START OF ANTENNA    
+BLOCK IIA           G05                 G035      1993-054A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1993     8    30     0     0    0.0000000                 VALID FROM          
+  2009     6     8    23    59   59.9999999                 VALID UNTIL         
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP     
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP     
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA     
+                                                            START OF ANTENNA    
+BLOCK IIA           G06                 G036      1994-016A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1994     3    10     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA   
+                                                            START OF ANTENNA  
+BLOCK IIA           G08                 G038      1997-067A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1997    11     6     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIA           G09                 G039      1993-042A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1993     6    26     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIA           G10                 G040      1996-041A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1996     7    16     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP     
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP     
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA    
+                                                            START OF ANTENNA    
+BLOCK IIA           G24                 G024      1991-047A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1991     7     4     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP     
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIA           G25                 G025      1992-009A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1992     2    23     0     0    0.0000000                 VALID FROM          
+  2010     2     8    23    59   59.9999999                 VALID UNTIL         
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP 
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA    
+                                                            START OF ANTENNA    
+BLOCK IIA           G25                 G035      1993-054A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2010     2     9     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA        
+                                                            START OF ANTENNA    
+BLOCK IIA           G26                 G026      1992-039A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1992     7     7     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIA           G27                 G027      1992-058A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1992     9     9     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA    
+                                                            START OF ANTENNA    
+BLOCK IIA           G30                 G030      1996-056A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1996     9    12     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    279.40      0.00    951.90                              NORTH / EAST / UP     
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA
+                                                            START OF ANTENNA   
+BLOCK IIR-B         G02                 G061      2004-045A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2004    11     6     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+     -9.90      6.10    -82.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+     -9.90      6.10    -82.00                              NORTH / EAST / UP 
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA  
+                                                            START OF ANTENNA    
+BLOCK IIR-A         G11                 G046      1999-055A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1999    10     7     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+      1.90      1.10   1514.10                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      1.90      1.10   1514.10                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA 
+                                                            START OF ANTENNA    
+BLOCK IIR-A         G13                 G043      1997-035A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  1997     7    23     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+      2.40      2.50   1614.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      2.40      2.50   1614.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIR-A         G14                 G041      2000-071A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2000    11    10     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+      1.80      0.20   1613.70                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      1.80      0.20   1613.70                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA 
+                                                            START OF ANTENNA    
+BLOCK IIR-A         G16                 G056      2003-005A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2003     1    29     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+     -9.18      6.00   1663.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+     -9.18      6.00   1663.00                              NORTH / EAST / UP
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA   
+                                                            START OF ANTENNA    
+BLOCK IIR-A         G18                 G054      2001-004A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2001     1    30     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+     -9.80      6.00   1592.30                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+     -9.80      6.00   1592.30                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA    
+                                                            START OF ANTENNA    
+BLOCK IIR-B         G19                 G059      2004-009A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2004     3    20     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+     -7.90      4.60    -18.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+     -7.90      4.60    -18.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA     
+                                                            START OF ANTENNA    
+BLOCK IIR-A         G20                 G051      2000-025A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2000     5    11     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+      2.20      1.40   1614.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      2.20      1.40   1614.00                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA  
+                                                            START OF ANTENNA    
+BLOCK IIR-A         G21                 G045      2003-010A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2003     3    31     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+      2.30     -0.60   1584.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      2.30     -0.60   1584.00                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA 
+                                                            START OF ANTENNA    
+BLOCK IIR-B         G22                 G047      2003-058A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2003    12    21     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+      1.80     -0.90     59.80                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      1.80     -0.90     59.80                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIR-B         G23                 G060      2004-023A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2004     6    23     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+     -8.80      3.50      0.40                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+     -8.80      3.50      0.40                              NORTH / EAST / UP  
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIR-A         G28                 G044      2000-040A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2000     7    16     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL           
+   G01                                                      START OF FREQUENCY  
+      1.90      0.70   1513.10                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      1.90      0.70   1513.10                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA 
+                                                            START OF ANTENNA    
+BLOCK IIR-M         G01                 G049      2009-014A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2009     3    24     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL             
+   G01                                                      START OF FREQUENCY  
+     12.45     -0.38    -22.83                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+     12.45     -0.38    -22.83                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA  
+                                                            START OF ANTENNA    
+BLOCK IIR-M         G05                 G050      2009-043A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2009     8    17     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL                      
+   G01                                                      START OF FREQUENCY  
+      2.92     -0.05    -16.71                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      2.92     -0.05    -16.71                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA       
+                                                            START OF ANTENNA    
+BLOCK IIR-M         G07                 G048      2008-012A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2008     3    15     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL                   
+   G01                                                      START OF FREQUENCY  
+      1.27      0.25      0.56                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      1.27      0.25      0.56                              NORTH / EAST / UP     
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA 
+                                                            START OF ANTENNA      
+BLOCK IIR-M         G12                 G058      2006-052A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2006    11    17     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL                       
+   G01                                                      START OF FREQUENCY  
+    -10.16      5.87    -93.55                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    -10.16      5.87    -93.55                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA   
+                                                            START OF ANTENNA    
+BLOCK IIR-M         G15                 G055      2007-047A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2007    10    17     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL                     
+   G01                                                      START OF FREQUENCY  
+     -9.96      5.79    -12.27                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+     -9.96      5.79    -12.27                              NORTH / EAST / UP      
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA    
+                                                            START OF ANTENNA    
+BLOCK IIR-M         G17                 G053      2005-038A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2005     9    26     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL                     
+   G01                                                      START OF FREQUENCY  
+     -9.96      5.99   -100.60                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+     -9.96      5.99   -100.60                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA      
+                                                            START OF ANTENNA    
+BLOCK IIR-M         G29                 G057      2007-062A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2007    12    20     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL                        
+   G01                                                      START OF FREQUENCY  
+    -10.12      5.91    -15.12                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+    -10.12      5.91    -15.12                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA   
+                                                            START OF ANTENNA    
+BLOCK IIR-M         G31                 G052      2006-042A TYPE / SERIAL NO    
+     0.0                                                    DAZI                
+     0.0  14.0   1.0                                        ZEN1 / ZEN2 / DZEN  
+     2                                                      # OF FREQUENCIES    
+  2006     9    25     0     0    0.0000000                 VALID FROM
+  2010     3     1    23    59   59.9999999                 VALID UNTIL                        
+   G01                                                      START OF FREQUENCY  
+      1.60      0.33    -57.50                              NORTH / EAST / UP   
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G01                                                      END OF FREQUENCY    
+   G02                                                      START OF FREQUENCY  
+      1.60      0.33    -57.50                              NORTH / EAST / UP    
+   NOAZI    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00    0.00
+   G02                                                      END OF FREQUENCY    
+                                                            END OF ANTENNA     
