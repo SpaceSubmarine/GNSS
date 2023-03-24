@@ -1,0 +1,18 @@
+NASA National Aeronautics and Space Administration
+ESA European Space Agency
+PPP Precise Point Positioning
+SPP Standard Point Positioning
+STEC Slant Total Electron Content
+TECU Total Electron Content Unit
+SNR Signal to Noise Ratio
+GPS Global Positioning System
+iDFT Inverse Discreete Fourier Transform
+DFT Discreet Fourier Transform
+FFT Fast Fourier Transform
+APD Avalanche Photodiode
+HSV Hue Saturation Value
+RGB Red Green Blue
+BGR Blue Green Red 
+ID Identifier
+CSV Comma Separated Value
+

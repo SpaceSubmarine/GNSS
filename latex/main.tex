@@ -1,0 +1,217 @@
+
+%%%%%%%%%%%%%%%%%%% -------- INICI DOCUMENT ---------%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt]{book}
+
+\input{packages}
+\usepackage{fancyhdr}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%-------- INICI MARGES REPORT  ---------%%%%%%%%%%%%%%%%%%%
+
+
+
+\setpapersize{A4}
+\setmargins{2.5cm}          % marge esquerre
+{0cm}                       % marge superior
+{16.5cm}                    % amplada del text
+{23.97cm}                   % altura del text
+{55pt}                      % altura capçaleres
+{1cm}                    % espai entre el text i les capçaleres
+{1pt}                       % altura del peu de pàgina
+{1.5cm}                     % espai entre el text i el peu de pàgina
+%% FI MARGES
+
+  
+                        
+%%%%%%%%%%%%%%%%%%% -------- FI MARGES REPORT ---------%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%% -------- CONFIGURACIÓ DOCUMENT ---------%%%%%%%%%%%%%%%%%%%%
+% Reconfiguracio FootNote
+\renewcommand{\thefootnote}{\textbf{{(\roman{footnote})}}} %arabic
+%INTERLINEAT
+\spacing{1.1}
+
+%CONFIGURACIÓ TAULES
+
+\captionsetup[table]{skip=10pt}
+\setlength{\tabcolsep}{10pt}
+\renewcommand{\arraystretch}{0.6}
+
+%ENCAPÇALAMENTS
+
+\pagestyle{fancy}
+\fancypagestyle{plain}{
+  \fancyhf{}
+  \rhead{{GLOBAL NAVIGATION SATELLITE SYSTEM}}
+  \lhead{\includegraphics[width=5.5cm]{Figures/logo_eseiaat.png} }
+   \cfoot{\thepage}
+   }
+  
+% Distancies entre figures (MARC MONTALVEZ)
+\setlength{\intextsep}{10pt} % Establecer la separación entre figura y texto a 10pt
+%\usepackage{titlesec}
+%\titlespacing{\subsection}{0pt}{0pt}{0pt}
+\usepackage{titlesec}
+\titlespacing{\section}{0pt}{10pt}{5pt}
+\titlespacing{\subsection}{0pt}{10pt}{5pt}
+
+
+
+
+% para la portada
+\title{
+\begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.35]{Figures/logo_eseiaat.png}
+\end{figure}
+
+%\normalfont \normalsize 
+
+\textsc{\Large MASTER'S DEGREE IN SPACE AND AERONAUTICAL ENGINEERING} \\
+[15pt] 
+\rule{\linewidth}{0.5pt} \\[6pt] 
+\huge GLOBAL NAVIGATION SATELLITE SYSTEM\\
+LABORATORY AND THEORY EXERCISES 
+\rule{\linewidth}{1pt}  \\[15pt]
+\\}
+
+\author{
+By: Marc Monclús Montalvez, BSc in Naval Engineering\\
+\\
+\\
+Professor: Dr. Adrià Rovira Garcia, PhD in Aerospace Science\\
+}
+
+\date{\normalsize Terrasa, Catalonia, Spain, March 28, 2023}
+
+\setlength{\parindent}{0cm}
+
+
+
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%-------- INICI DE LA PORTADA DE LA MEMÒRIA ---------%%%%%%%%%%%%%
+
+\begin{document}
+
+
+
+\renewcommand{\listfigurename}{List of figures}
+\renewcommand{\listtablename}{List of tables}
+\renewcommand{\contentsname}{Contents}
+\renewcommand{\figurename}{Figure}
+\renewcommand{\tablename}{Table}
+\renewcommand{\chaptername}{Chapter}
+\renewcommand{\bibname}{Bibliography}
+
+\newgeometry{left=5cm,bottom=0.1cm,textwidth=19cm}
+
+
+
+\pagestyle{\thepage}
+%AQUI EMPIEZA LA PORTADA============================================
+\restoregeometry
+\input{Portada}
+\thispagestyle{empty} 
+\newpage
+
+%AQUI ACABA LA PORTADA============================================
+%MODIFICAR
+
+
+%%%%%%%%%%%%-------- FI DE LA PORTADA DE LA MEMÒRIA ---------%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\clearpage  % para eliminar problemas con el salto de pagina (limpia los floats)
+\vspace*{\fill}
+\newpage
+
+
+\section{Abstract}
+Here goes the abstract
+
+
+
+\clearpage  % para eliminar problemas con el salto de pagina (limpia los floats)
+\newpage
+
+
+
+\newpage
+\tableofcontents  %Indice
+\newpage
+% Si tenim figures cal descomentar la següent linia
+%\listoffigures
+%\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% _               ____  
+%| |        /\   |  _ \ 
+%| |       /  \  | |_) |
+%| |      / /\ \ |  _ < 
+%| |____ / ____ \| |_) |
+%|______/_/    \_\____/ 
+%%%%%%%%%%%%%%%%%%%%%%%%
+%  _____ _______       _____ _______ _____ 
+% / ____|__   __|/\   |  __ \__   __/ ____|
+%| (___    | |  /  \  | |__) | | | | (___  
+% \___ \   | | / /\ \ |  _  /  | |  \___ \ 
+% ____) |  | |/ ____ \| | \ \  | |  ____) |
+%|_____/   |_/_/    \_\_|  \_\ |_| |_____/ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% _    _ ______ _____  ______ 
+%| |  | |  ____|  __ \|  ____|
+%| |__| | |__  | |__) | |__   
+%|  __  |  __| |  _  /|  __|  
+%| |  | | |____| | \ \| |____ 
+%|_|  |_|______|_|  \_\______|
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tableofcontents 
+\clearpage
+
+
+\listoftables
+\clearpage
+
+\listoffigures
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\chapter{Theory}
+%\input{sections/Theory_Review}
+
+
+\chapter{Tutorial 2}
+
+\input{sections/ex1}
+\input{sections/ex2}
+\input{sections/ex3.1}
+\input{sections/ex3.2}
+\input{sections/ex3.3}
+\input{sections/ex3.4}
+\input{sections/ex4}
+
+\printbibliography
+
+\clearpage  
+\newpage
+
+\appendix
+\chapter{Acronyms}
+\input{acronyms}
+
+
+\clearpage  
+\newpage
+
+\end{document}

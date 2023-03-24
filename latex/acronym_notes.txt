@@ -1,0 +1,28 @@
+Para que un acrónimo aparezca en el pie de página y se pueda referenciar en un anexo en LaTeX, puedes utilizar el paquete "acronym" y la función \acfootnote{}.
+
+Aquí hay un ejemplo de cómo hacerlo:
+
+En el preámbulo del documento, debes cargar el paquete "acronym":
+
+\usepackage{acronym}
+Luego, para definir un acrónimo, debes utilizar el comando \acro{} y proporcionar dos argumentos: el primero es el acrónimo y el segundo es la explicación completa del término:
+sql
+
+\acro{GPS}{Global Positioning System}
+En el texto, cuando quieras utilizar el acrónimo, debes utilizar el comando \ac{}:
+
+El \ac{GPS} es un sistema de navegación por satélite.
+Este comando imprimirá el acrónimo "GPS" y su explicación completa "Global Positioning System" en la primera aparición del acrónimo en el texto. En la siguiente aparición del acrónimo en el texto, solo se imprimirá el acrónimo.
+
+Para que el acrónimo aparezca en el pie de página en su primera aparición y se pueda referenciar en un anexo, debes utilizar la función \acfootnote{}:
+css
+
+El \ac{GPS}\acfootnote{El acrónimo \ac{GPS} se refiere a Global Positioning System.} es un sistema de navegación por satélite.
+Este comando imprimirá el acrónimo "GPS" en el texto y una nota al pie de página con la explicación completa del término. Además, la etiqueta del acrónimo se puede utilizar en cualquier parte del documento para referenciar la nota al pie de página.
+
+En el anexo, puedes utilizar el comando \acuse{} para marcar los acrónimos como "usados", lo que evitará que se muestren en el pie de página:
+css
+
+\section{Anexo}
+El \ac{GPS} fue utilizado en este estudio.\acuse{GPS}
+Este comando imprimirá solo el acrónimo "GPS" en el texto y evitará que se muestre la nota al pie de página en el anexo.
